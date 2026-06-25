@@ -673,7 +673,7 @@
     //    do formulário (que seria recarregar a página).
     // ================================================================
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', async function(event) {
       event.preventDefault()   // sem isso, a página recarregaria
 
       // ── Limpar erros anteriores ──────────────────────────────────
@@ -718,8 +718,47 @@
       form.style.display            = 'none'
       mensagemSucesso.style.display = 'block'
 
-      // (Futuramente aqui: enviar os dados pro Supabase)
+      // ── Enviar pro Supabase ──────────────────────────────────────
+      // fetch() faz uma requisição HTTP — é como o navegador "ligar"
+      // pra um servidor e mandar informação.
+      // async/await: como o JS lida com coisas que demoram (rede).
+      // A função virou "async" lá em cima pra poder usar "await" aqui.
+      enviarParaSupabase(nome, email)
     })
+
+
+    // ================================================================
+    // 4. FUNÇÃO QUE SALVA NO SUPABASE
+    //    fetch() = faz uma chamada HTTP pra API do Supabase
+    //    async/await = espera a resposta sem travar a página
+    //    JSON.stringify() = converte o objeto JS em texto pra enviar
+    // ================================================================
+
+    const SUPABASE_URL = 'https://rlgavsuubshiiykdqdff.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsZ2F2c3V1YnNoaWl5a2RxZGZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MDY3NTgsImV4cCI6MjA5Nzk4Mjc1OH0.5Qy1eAVzsZ1ftzvSsCQhaaNmI_gnmh2oPXgviMPwlwI'
+
+    async function enviarParaSupabase(nome, email) {
+      try {
+        const resposta = await fetch(SUPABASE_URL + '/rest/v1/lista_espera', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ nome: nome, email: email })
+        })
+
+        if (!resposta.ok) {
+          console.error('Erro ao salvar no Supabase:', resposta.status)
+        }
+      } catch (erro) {
+        // Se a rede falhar, a mensagem de sucesso já apareceu —
+        // a usuária não vê erro. O problema fica no console pra debug.
+        console.error('Falha na conexão:', erro)
+      }
+    }
   </script>
 
 </body>
