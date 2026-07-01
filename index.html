@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selene — cada fase, um mimo</title>
-
   <style>
     /* ================================================================
        VARIÁVEIS — as cores da Selene num lugar só.
@@ -19,7 +17,6 @@
       --texto:  #1A3D47;
       --muted:  #6B9BA8;
     }
-
     /* ================================================================
        RESET: zera margens e paddings padrão do navegador.
        box-sizing: border-box faz padding não "inflar" o elemento.
@@ -29,7 +26,6 @@
       margin: 0;
       padding: 0;
     }
-
     /* ================================================================
        BODY: configurações gerais da página inteira
     ================================================================ */
@@ -39,16 +35,12 @@
       color: var(--texto);
       line-height: 1.6;
     }
-
     /* h1, h2, h3 herdam a fonte Georgia por padrão */
     h1, h2, h3 {
       font-family: Georgia, serif;
       color: var(--egeu);
     }
-
     a { text-decoration: none; }  /* remove sublinhado dos links */
-
-
     /* ================================================================
        HEADER: barra fixa no topo
     ================================================================ */
@@ -59,7 +51,6 @@
       top: 0;
       z-index: 100;       /* fica na frente de tudo */
     }
-
     nav {
       display: flex;                  /* coloca itens lado a lado */
       justify-content: space-between; /* logo na esquerda, link na direita */
@@ -67,14 +58,12 @@
       max-width: 900px;
       margin: 0 auto;                 /* centraliza o conteúdo */
     }
-
     nav span {
       font-family: Georgia, serif;
       font-size: 1.2rem;
       color: white;
       letter-spacing: -0.3px;
     }
-
     nav a {
       color: var(--prata);
       border: 1px solid rgba(184, 212, 217, 0.5);
@@ -83,13 +72,10 @@
       font-size: 0.82rem;
       transition: all 0.2s;  /* animação suave no hover */
     }
-
     nav a:hover {  /* o que acontece quando o mouse passa por cima */
       background: var(--prata);
       color: var(--egeu);
     }
-
-
     /* ================================================================
        HERO: primeira seção — a mais importante da página
     ================================================================ */
@@ -98,7 +84,6 @@
       padding: 100px 32px;
       text-align: center;
     }
-
     #hero h1 {
       font-size: 3.8rem;
       color: white;
@@ -106,7 +91,6 @@
       margin-bottom: 20px;
       letter-spacing: -1px;
     }
-
     #hero p {
       font-size: 1.15rem;
       color: var(--prata);
@@ -114,9 +98,7 @@
       margin: 0 auto 36px;  /* auto nas laterais centraliza o parágrafo */
       line-height: 1.7;
     }
-
     #hero em { color: white; }  /* a palavra "com" em itálico fica branca */
-
     #hero .btn-principal {
       background: var(--coral);
       color: white;
@@ -128,13 +110,10 @@
       transition: all 0.2s;
       box-shadow: 0 4px 20px rgba(224, 122, 95, 0.4);
     }
-
     #hero .btn-principal:hover {
       transform: translateY(-2px);  /* sobe levinho ao passar o mouse */
       box-shadow: 0 8px 28px rgba(224, 122, 95, 0.5);
     }
-
-
     /* ================================================================
        CONTAINER: limita a largura e centraliza o conteúdo.
        Usado em todas as seções para manter tudo alinhado.
@@ -143,36 +122,54 @@
       max-width: 900px;
       margin: 0 auto;
     }
-
     section {
       padding: 64px 32px;
     }
-
-
     /* ================================================================
        PROBLEMA
     ================================================================ */
     #problema {
       background: white;
     }
-
     #problema .container {
       max-width: 700px;  /* texto mais estreito — mais fácil de ler */
     }
-
     #problema h2 {
       font-size: 1.85rem;
       margin-bottom: 20px;
       line-height: 1.3;
     }
-
     #problema p {
       color: var(--muted);
       margin-bottom: 14px;
       font-size: 1rem;
     }
-
-
+    /* ---- NÚMEROS DA PESQUISA (prova com dados reais) ---- */
+    #problema .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);  /* 3 números lado a lado */
+      gap: 16px;
+      margin-top: 32px;
+    }
+    #problema .stat {
+      background: var(--marmore);
+      border: 1px solid var(--prata);
+      border-radius: 14px;
+      padding: 22px 16px;
+      text-align: center;
+    }
+    #problema .stat .num {
+      font-family: Georgia, serif;
+      font-size: 2rem;
+      color: var(--coral);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    #problema .stat .desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
     /* ================================================================
        COMO FUNCIONA
     ================================================================ */
@@ -181,20 +178,17 @@
       font-size: 1.85rem;
       margin-bottom: 40px;
     }
-
     #como-funciona .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);  /* 3 colunas iguais */
       gap: 24px;                               /* espaço entre os cards */
     }
-
     #como-funciona .card {
       background: white;
       border-radius: 16px;
       padding: 28px 24px;
       border: 1px solid var(--prata);
     }
-
     #como-funciona .card h3 {
       font-family: -apple-system, 'Segoe UI', sans-serif;
       font-size: 0.95rem;
@@ -202,40 +196,76 @@
       color: var(--egeu);
       margin-bottom: 10px;
     }
-
     #como-funciona .card p {
       font-size: 0.87rem;
       color: var(--muted);
       line-height: 1.65;
     }
-
-
+    /* ================================================================
+       UM MIMO PRA CADA FASE
+    ================================================================ */
+    #fases { background: var(--marmore); }
+    #fases h2 {
+      text-align: center;
+      font-size: 1.85rem;
+      margin-bottom: 12px;
+    }
+    #fases .sub {
+      text-align: center;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    #fases .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);  /* 4 fases lado a lado */
+      gap: 16px;
+    }
+    #fases .fase {
+      background: white;
+      border: 1px solid var(--prata);
+      border-radius: 16px;
+      padding: 22px 18px;
+    }
+    #fases .fase .ic { font-size: 1.7rem; }
+    #fases .fase h3 { font-size: 1.05rem; margin: 10px 0 2px; }
+    #fases .fase .fsub {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    #fases .fase .mimo {
+      font-size: 0.84rem;
+      color: var(--texto);
+      background: rgba(224, 122, 95, 0.09);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    #fases .fase .mimo b { color: var(--coral); }
     /* ================================================================
        O QUE A SELENE FAZ
     ================================================================ */
     #o-que-faz {
       background: white;
     }
-
     #o-que-faz h2 {
       text-align: center;
       font-size: 1.85rem;
       margin-bottom: 40px;
     }
-
     #o-que-faz .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
-
     #o-que-faz .card {
       background: var(--marmore);
       border-radius: 14px;
       padding: 22px 20px;
       border-left: 3px solid var(--coral);  /* traço coral na esquerda */
     }
-
     #o-que-faz .card h3 {
       font-family: -apple-system, 'Segoe UI', sans-serif;
       font-size: 0.88rem;
@@ -243,41 +273,75 @@
       color: var(--egeu);
       margin-bottom: 8px;
     }
-
     #o-que-faz .card p {
       font-size: 0.82rem;
       color: var(--muted);
       line-height: 1.6;
     }
-
-
+    /* ================================================================
+       COMPARATIVO — os apps de hoje vs. a Selene
+    ================================================================ */
+    #comparativo { background: var(--marmore); }
+    #comparativo h2 {
+      text-align: center;
+      font-size: 1.85rem;
+      margin-bottom: 36px;
+    }
+    #comparativo .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;  /* duas colunas: eles | Selene */
+      gap: 20px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    #comparativo .col { border-radius: 16px; padding: 26px; }
+    #comparativo .eles { background: white; border: 1px solid var(--prata); }
+    #comparativo .selene {
+      background: linear-gradient(160deg, var(--egeu), #0D5C63);
+      color: white;
+    }
+    #comparativo h3 {
+      font-family: -apple-system, 'Segoe UI', sans-serif;
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+    }
+    #comparativo .eles h3 { color: var(--muted); }
+    #comparativo ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    #comparativo li { font-size: 0.9rem; display: flex; gap: 9px; }
+    #comparativo .eles li { color: var(--muted); }
+    #comparativo .selene li { color: rgba(255, 255, 255, 0.9); }
+    #comparativo .mk { flex-shrink: 0; font-weight: 700; }
+    #comparativo .eles .mk { color: var(--prata); }
+    #comparativo .selene .mk { color: #f4e6d6; }
     /* ================================================================
        DEPOIMENTOS
     ================================================================ */
     #depoimentos {
       background: var(--egeu);
     }
-
     #depoimentos h2 {
       color: white;
       text-align: center;
       font-size: 1.85rem;
       margin-bottom: 36px;
     }
-
     #depoimentos .grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      /* auto-fit: encaixa quantos cards couberem por linha, sozinho */
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 20px;
     }
-
     #depoimentos .card {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(184, 212, 217, 0.25);
       border-radius: 14px;
       padding: 24px;
     }
-
     #depoimentos .card p {
       color: rgba(255, 255, 255, 0.85);
       font-size: 0.9rem;
@@ -285,30 +349,24 @@
       font-style: italic;
       margin-bottom: 14px;
     }
-
     #depoimentos .card span {
       font-size: 0.75rem;
       color: var(--prata);
     }
-
-
     /* ================================================================
        LISTA DE ESPERA
     ================================================================ */
     #lista-espera {
       text-align: center;
     }
-
     #lista-espera h2 {
       font-size: 2rem;
       margin-bottom: 14px;
     }
-
     #lista-espera > .container > p {
       color: var(--muted);
       margin-bottom: 40px;
     }
-
     #lista-espera form {
       display: flex;
       flex-direction: column;  /* campos empilhados (um abaixo do outro) */
@@ -317,13 +375,11 @@
       margin: 0 auto;
       text-align: left;
     }
-
     #lista-espera label {
       font-size: 0.8rem;
       font-weight: 600;
       color: var(--egeu);
     }
-
     #lista-espera input {
       width: 100%;
       padding: 13px 16px;
@@ -335,15 +391,12 @@
       transition: border-color 0.2s;
       font-family: inherit;
     }
-
     #lista-espera input:focus {  /* quando o campo está ativo (clicado) */
       border-color: var(--egeu);
     }
-
     #lista-espera input::placeholder {
       color: var(--muted);
     }
-
     #lista-espera button {
       background: var(--coral);
       color: white;
@@ -357,13 +410,10 @@
       margin-top: 6px;
       font-family: inherit;
     }
-
     #lista-espera button:hover {
       background: #c9664e;
       transform: translateY(-2px);
     }
-
-
     /* ================================================================
        FOOTER
     ================================================================ */
@@ -372,18 +422,14 @@
       padding: 28px 32px;
       text-align: center;
     }
-
     footer p {
       color: var(--prata);
       font-size: 0.82rem;
       margin-bottom: 4px;
     }
-
-
     /* ================================================================
        ESTADOS DO FORMULÁRIO
     ================================================================ */
-
     /* mensagem de erro abaixo de um campo */
     .msg-erro {
       font-size: 0.78rem;
@@ -391,12 +437,10 @@
       display: none;       /* começa invisível */
       margin-top: -6px;
     }
-
     /* quando o campo tiver erro, borda fica vermelha */
     .campo-erro {
       border-color: #c0392b !important;
     }
-
     /* caixa de sucesso — aparece depois de enviar */
     #mensagem-sucesso {
       display: none;       /* começa invisível */
@@ -405,57 +449,85 @@
       background: white;
       border-radius: 16px;
       border: 1.5px solid var(--prata);
-      max-width: 420px;
+      max-width: 460px;
       margin: 0 auto;
     }
-
     #mensagem-sucesso .icone {
       font-size: 2.5rem;
       margin-bottom: 14px;
     }
-
     #mensagem-sucesso h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
       color: var(--egeu);
     }
-
     #mensagem-sucesso p {
       font-size: 0.88rem;
       color: var(--muted);
       line-height: 1.6;
     }
-
-
+    /* ---- BLOCO DE INDICAÇÃO (traga 2 amigas, fura a fila) ---- */
+    #bloco-indicacao {
+      margin-top: 20px;
+      border-top: 1px solid var(--prata);
+      padding-top: 18px;
+    }
+    #bloco-indicacao .dica {
+      font-size: 0.84rem;
+      color: var(--texto);
+    }
+    #bloco-indicacao .dica b { color: var(--coral); }
+    #bloco-indicacao .ref-linha {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    #bloco-indicacao input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1.5px solid var(--prata);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--texto);
+      font-family: inherit;
+      outline: none;
+    }
+    #bloco-indicacao button {
+      background: var(--egeu);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0 18px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: inherit;
+    }
     /* ================================================================
        RESPONSIVO: quando a tela for estreita (celular),
-       as grades de 3 colunas viram 1 coluna
+       as grades de 3/4 colunas viram 1 coluna
     ================================================================ */
     @media (max-width: 640px) {
       #hero h1 { font-size: 2.5rem; }
-
       #como-funciona .grid,
       #o-que-faz .grid,
-      #depoimentos .grid {
+      #depoimentos .grid,
+      #fases .grid,
+      #comparativo .grid,
+      #problema .stats {
         grid-template-columns: 1fr;  /* 1 coluna só no celular */
       }
-
       section { padding: 48px 20px; }
     }
-
   </style>
 </head>
-
 <body>
-
   <header>
     <nav>
       <span>🌙 Selene</span>
       <a href="#lista-espera">Entrar na lista</a>
     </nav>
   </header>
-
-
   <section id="hero">
     <h1>Cada fase, um mimo.</h1>
     <p>
@@ -464,8 +536,6 @@
     </p>
     <a href="#lista-espera" class="btn-principal">Quero entrar na lista de espera 🌙</a>
   </section>
-
-
   <section id="problema">
     <div class="container">
       <h2>Você já tentou ser produtiva em um dia em que seu corpo precisava de descanso?</h2>
@@ -478,15 +548,27 @@
         de foco. Na ovulatória, de conexão. Na lútea, de calma.
         A Selene sabe disso.
       </p>
+      <!-- Números da nossa pesquisa com mulheres reais -->
+      <div class="stats">
+        <div class="stat">
+          <div class="num">72%</div>
+          <div class="desc">sentem o ciclo afetar a produtividade <em>claramente</em></div>
+        </div>
+        <div class="stat">
+          <div class="num">nº 1</div>
+          <div class="desc">a queixa são as cólicas — o peso da menstruação e da TPM</div>
+        </div>
+        <div class="stat">
+          <div class="num">planejar</div>
+          <div class="desc">a semana no seu ritmo é o que elas mais pedem</div>
+        </div>
+      </div>
     </div>
   </section>
-
-
   <section id="como-funciona">
     <div class="container">
       <h2>Como a Selene funciona</h2>
       <div class="grid">
-
         <div class="card">
           <h3>1. Conta onde você está no ciclo</h3>
           <p>
@@ -494,7 +576,6 @@
             à sua fase atual e entende o que seu corpo está vivendo.
           </p>
         </div>
-
         <div class="card">
           <h3>2. Recebe um compromisso feito pra você</h3>
           <p>
@@ -502,7 +583,6 @@
             Não o que você "deveria" fazer — o que faz sentido agora.
           </p>
         </div>
-
         <div class="card">
           <h3>3. Completa e desbloqueia um mimo</h3>
           <p>
@@ -510,17 +590,45 @@
             um cupom da Julie Sas Mimos, uma surpresa personalizada. ✨
           </p>
         </div>
-
       </div>
     </div>
   </section>
-
-
+  <section id="fases">
+    <div class="container">
+      <h2>Um mimo pra cada fase</h2>
+      <p class="sub">A cada fase do ciclo, a Selene sugere o cuidado certo — e libera o mimo do dia.</p>
+      <div class="grid">
+        <div class="fase">
+          <div class="ic">🌑</div>
+          <h3>Menstrual</h3>
+          <div class="fsub">Descanso autorizado</div>
+          <div class="mimo"><b>Mimo:</b> um banho quente sem culpa e uma receita anti-inflamatória pras cólicas.</div>
+        </div>
+        <div class="fase">
+          <div class="ic">🌒</div>
+          <h3>Folicular</h3>
+          <div class="fsub">A energia volta</div>
+          <div class="mimo"><b>Mimo:</b> experimente algo novo — uma playlist e um treino leve pra embalar.</div>
+        </div>
+        <div class="fase">
+          <div class="ic">🌕</div>
+          <h3>Ovulatória</h3>
+          <div class="fsub">Seu auge</div>
+          <div class="mimo"><b>Mimo:</b> marque aquela conversa importante — e um treino de força.</div>
+        </div>
+        <div class="fase">
+          <div class="ic">🌘</div>
+          <h3>Lútea / TPM</h3>
+          <div class="fsub">Recolhimento</div>
+          <div class="mimo"><b>Mimo:</b> cancele o que puder. Um chá calmante e três respirações fundas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="o-que-faz">
     <div class="container">
       <h2>O que a Selene pode fazer por você</h2>
       <div class="grid">
-
         <div class="card">
           <h3>🌙 Entende onde você está no ciclo</h3>
           <p>
@@ -528,7 +636,6 @@
             rituais do dia à sua fase atual.
           </p>
         </div>
-
         <div class="card">
           <h3>📋 Sugere tarefas alinhadas com sua energia</h3>
           <p>
@@ -536,7 +643,6 @@
             Folicular é a fase certa. Ela sabe disso.
           </p>
         </div>
-
         <div class="card">
           <h3>🎁 Te recompensa com mimos reais</h3>
           <p>
@@ -544,7 +650,6 @@
             surpresa personalizada. Você merece celebrar cada fase.
           </p>
         </div>
-
         <div class="card">
           <h3>💬 Lembra de você entre as conversas</h3>
           <p>
@@ -552,7 +657,6 @@
             mais inteligente a cada conversa.
           </p>
         </div>
-
         <div class="card">
           <h3>🚫 Nunca te julga por ter um dia difícil</h3>
           <p>
@@ -560,7 +664,6 @@
             você. Sem culpa, sem drama.
           </p>
         </div>
-
         <div class="card">
           <h3>📈 Aprende com o seu ciclo ao longo do tempo</h3>
           <p>
@@ -568,17 +671,38 @@
             mas os seus. Cada ciclo é único.
           </p>
         </div>
-
       </div>
     </div>
   </section>
-
-
+  <section id="comparativo">
+    <div class="container">
+      <h2>Os apps rastreiam. A Selene acolhe e age.</h2>
+      <div class="grid">
+        <div class="col eles">
+          <h3>Os apps de hoje</h3>
+          <ul>
+            <li><span class="mk">—</span> Só registram datas e sintomas</li>
+            <li><span class="mk">—</span> Tom clínico e frio</li>
+            <li><span class="mk">—</span> Pensados em inglês, focados em fertilidade</li>
+            <li><span class="mk">—</span> Você entende o ciclo, mas continua sozinha</li>
+          </ul>
+        </div>
+        <div class="col selene">
+          <h3>🌙 A Selene</h3>
+          <ul>
+            <li><span class="mk">✓</span> Sugere, acompanha e recompensa a cada fase</li>
+            <li><span class="mk">✓</span> Tom acolhedor, poético e feminino</li>
+            <li><span class="mk">✓</span> Em português, pra quem produz e se cuida</li>
+            <li><span class="mk">✓</span> Uma companhia que respeita o seu corpo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="depoimentos">
     <div class="container">
       <h2>O que as mulheres estão dizendo</h2>
       <div class="grid">
-
         <div class="card">
           <p>
             "Nunca entendi por que algumas semanas eu consigo fazer tudo
@@ -586,7 +710,6 @@
           </p>
           <span>— Respondente do formulário de pesquisa</span>
         </div>
-
         <div class="card">
           <p>
             "Precisaria de um app que soubesse que na TPM eu não consigo
@@ -594,12 +717,16 @@
           </p>
           <span>— Respondente do formulário de pesquisa</span>
         </div>
-
+        <div class="card">
+          <p>
+            "Programar um ritmo diferente para a minha rotina, que
+            respeitasse as necessidades do meu corpo."
+          </p>
+          <span>— Empreendedora, pesquisa Selene</span>
+        </div>
       </div>
     </div>
   </section>
-
-
   <section id="lista-espera">
     <div class="container">
       <h2>Seja das primeiras a conhecer a Selene</h2>
@@ -611,38 +738,37 @@
         <label for="nome">Seu nome</label>
         <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?">
         <span class="msg-erro" id="erro-nome">Por favor, me diz seu nome. 🌙</span>
-
         <label for="email">Seu melhor e-mail</label>
         <input type="email" id="email" name="email" placeholder="seu@email.com">
         <span class="msg-erro" id="erro-email">Precisamos de um e-mail válido para te avisar. 💌</span>
-
         <button type="submit">Quero entrar na lista 🌙</button>
       </form>
-
       <!-- Esta div fica invisível até o formulário ser enviado com sucesso -->
       <div id="mensagem-sucesso">
         <div class="icone">🌙</div>
         <h3 id="texto-boas-vindas">Bem-vinda!</h3>
         <p>Você entrou para a lista de espera da Selene.<br>Assim que estivermos prontas, você será uma das primeiras a saber — e vai ganhar um mimo de boas-vindas. ✨</p>
+        <!-- Indicação: aparece junto da mensagem de sucesso -->
+        <div id="bloco-indicacao">
+          <div class="dica">🎁 <b>Traga 2 amigas e fure a fila.</b> Compartilhe o seu link:</div>
+          <div class="ref-linha">
+            <input type="text" id="ref-link" readonly>
+            <button type="button" id="btn-copiar">Copiar</button>
+          </div>
+        </div>
       </div>
-
     </div>
   </section>
-
-
   <footer>
     <p>🌙 Selene · cada fase, um mimo</p>
     <p>Em breve · Feito com amor por Julie Sas</p>
   </footer>
-
-
   <script>
     // ================================================================
     // 1. SELECIONAR OS ELEMENTOS DA PÁGINA
     //    querySelector/getElementById: como o CSS seleciona elementos,
     //    mas aqui a gente guarda numa variável pra usar depois.
     // ================================================================
-
     const form            = document.getElementById('form-espera')
     const inputNome       = document.getElementById('nome')
     const inputEmail      = document.getElementById('email')
@@ -650,21 +776,28 @@
     const erroEmail       = document.getElementById('erro-email')
     const mensagemSucesso = document.getElementById('mensagem-sucesso')
     const textoBV         = document.getElementById('texto-boas-vindas')
-
-
     // ================================================================
     // 2. FUNÇÃO DE VALIDAÇÃO DE E-MAIL
     //    Expressão regular (regex): um padrão pra checar se o e-mail
     //    tem o formato certo (algo@algo.algo).
     //    .test() devolve true ou false.
     // ================================================================
-
     function emailValido(valor) {
       const padrao = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return padrao.test(valor)
     }
-
-
+    // ================================================================
+    // 2b. CÓDIGO DE INDICAÇÃO
+    //    Gera um código curtinho a partir do e-mail — sempre o mesmo
+    //    pro mesmo e-mail. É o "id" da amiga no link de indicação.
+    // ================================================================
+    function gerarCodigo(texto) {
+      let h = 0
+      for (let i = 0; i < texto.length; i++) {
+        h = (h * 31 + texto.charCodeAt(i)) >>> 0   // continha simples de hash
+      }
+      return h.toString(36).slice(0, 6)             // vira algo tipo "a1b2c3"
+    }
     // ================================================================
     // 3. ESCUTAR O EVENTO DE SUBMIT
     //    addEventListener: "fique de olho nesse elemento;
@@ -672,52 +805,47 @@
     //    event.preventDefault(): impede o comportamento padrão
     //    do formulário (que seria recarregar a página).
     // ================================================================
-
     form.addEventListener('submit', async function(event) {
       event.preventDefault()   // sem isso, a página recarregaria
-
       // ── Limpar erros anteriores ──────────────────────────────────
       erroNome.style.display  = 'none'
       erroEmail.style.display = 'none'
       inputNome.classList.remove('campo-erro')
       inputEmail.classList.remove('campo-erro')
-
       // ── Pegar o que a usuária digitou (.value) ───────────────────
       // .trim() remove espaços em branco no início e no fim
       const nome  = inputNome.value.trim()
       const email = inputEmail.value.trim()
-
       // ── Validar ──────────────────────────────────────────────────
       let temErro = false
-
       if (nome === '') {
         // campo vazio: mostra erro
         erroNome.style.display = 'block'
         inputNome.classList.add('campo-erro')
         temErro = true
       }
-
       if (!emailValido(email)) {
         erroEmail.style.display = 'block'
         inputEmail.classList.add('campo-erro')
         temErro = true
       }
-
       // se tiver qualquer erro, para aqui (não continua)
       if (temErro) return
-
-
       // ── Tudo certo: mostrar mensagem de sucesso ──────────────────
       // Pega o primeiro nome (divide no espaço, pega a primeira parte)
       const primeiroNome = nome.split(' ')[0]
-
       // Muda o texto do h3 de boas-vindas com o nome dela
       textoBV.textContent = 'Bem-vinda, ' + primeiroNome + '! 🌙'
-
+      // ── Monta o link de indicação dela ("traga 2 amigas") ────────
+      // location.origin + pathname = o endereço atual da página.
+      const codigo = gerarCodigo(email)
+      const base = (location.origin && location.origin !== 'null')
+        ? location.origin + location.pathname
+        : 'https://juliesas1604-collab.github.io/selene/'
+      document.getElementById('ref-link').value = base + '?ref=' + codigo
       // Esconde o formulário e mostra a mensagem de sucesso
       form.style.display            = 'none'
       mensagemSucesso.style.display = 'block'
-
       // ── Enviar pro Supabase ──────────────────────────────────────
       // fetch() faz uma requisição HTTP — é como o navegador "ligar"
       // pra um servidor e mandar informação.
@@ -725,18 +853,32 @@
       // A função virou "async" lá em cima pra poder usar "await" aqui.
       enviarParaSupabase(nome, email)
     })
-
-
+    // ================================================================
+    // 3b. BOTÃO "COPIAR" DO LINK DE INDICAÇÃO
+    // ================================================================
+    document.getElementById('btn-copiar').addEventListener('click', function() {
+      const campo = document.getElementById('ref-link')
+      campo.select()
+      // navigator.clipboard: jeito moderno de copiar; o catch é o plano B
+      navigator.clipboard.writeText(campo.value).catch(function() {
+        document.execCommand('copy')
+      })
+      const textoOriginal = this.textContent
+      this.textContent = 'Copiado ✓'
+      const botao = this
+      setTimeout(function() { botao.textContent = textoOriginal }, 1600)
+    })
     // ================================================================
     // 4. FUNÇÃO QUE SALVA NO SUPABASE
     //    fetch() = faz uma chamada HTTP pra API do Supabase
     //    async/await = espera a resposta sem travar a página
     //    JSON.stringify() = converte o objeto JS em texto pra enviar
+    //
+    //    (Pra registrar QUEM indicou quem no futuro: crie uma coluna
+    //     "indicada_por" na tabela lista_espera e inclua o ?ref aqui.)
     // ================================================================
-
     const SUPABASE_URL = 'https://rlgavsuubshiiykdqdff.supabase.co'
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsZ2F2c3V1YnNoaWl5a2RxZGZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MDY3NTgsImV4cCI6MjA5Nzk4Mjc1OH0.5Qy1eAVzsZ1ftzvSsCQhaaNmI_gnmh2oPXgviMPwlwI'
-
     async function enviarParaSupabase(nome, email) {
       try {
         const resposta = await fetch(SUPABASE_URL + '/rest/v1/lista_espera', {
@@ -749,7 +891,6 @@
           },
           body: JSON.stringify({ nome: nome, email: email })
         })
-
         if (!resposta.ok) {
           console.error('Erro ao salvar no Supabase:', resposta.status)
         }
@@ -760,6 +901,5 @@
       }
     }
   </script>
-
 </body>
 </html>
