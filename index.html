@@ -414,6 +414,13 @@
       background: #c9664e;
       transform: translateY(-2px);
     }
+    /* botão desativado enquanto está enviando */
+    #lista-espera button:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.8;
+    }
     /* ================================================================
        FOOTER
     ================================================================ */
@@ -440,6 +447,20 @@
     /* quando o campo tiver erro, borda fica vermelha */
     .campo-erro {
       border-color: #c0392b !important;
+    }
+    /* mensagem de erro de ENVIO (quando o Supabase não confirma) */
+    #erro-envio {
+      display: none;       /* começa invisível */
+      max-width: 420px;
+      margin: 16px auto 0;
+      background: #fdecea;
+      border: 1.5px solid #e6a89b;
+      color: #a5382a;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      text-align: center;
     }
     /* caixa de sucesso — aparece depois de enviar */
     #mensagem-sucesso {
@@ -741,8 +762,13 @@
         <label for="email">Seu melhor e-mail</label>
         <input type="email" id="email" name="email" placeholder="seu@email.com">
         <span class="msg-erro" id="erro-email">Precisamos de um e-mail válido para te avisar. 💌</span>
-        <button type="submit">Quero entrar na lista 🌙</button>
+        <button type="submit" id="btn-enviar">Quero entrar na lista 🌙</button>
       </form>
+      <!-- Erro de ENVIO: aparece só se o Supabase não confirmar a gravação -->
+      <div id="erro-envio">
+        Ops, não consegui te cadastrar agora. 🌙 Confere sua conexão e
+        <b>tenta de novo</b> em instantes — seu e-mail ainda não foi salvo.
+      </div>
       <!-- Esta div fica invisível até o formulário ser enviado com sucesso -->
       <div id="mensagem-sucesso">
         <div class="icone">🌙</div>
@@ -774,6 +800,8 @@
     const inputEmail      = document.getElementById('email')
     const erroNome        = document.getElementById('erro-nome')
     const erroEmail       = document.getElementById('erro-email')
+    const erroEnvio       = document.getElementById('erro-envio')
+    const btnEnviar       = document.getElementById('btn-enviar')
     const mensagemSucesso = document.getElementById('mensagem-sucesso')
     const textoBV         = document.getElementById('texto-boas-vindas')
     // ================================================================
@@ -799,27 +827,45 @@
       return h.toString(36).slice(0, 6)             // vira algo tipo "a1b2c3"
     }
     // ================================================================
+    // 2c. MOSTRAR A TELA DE SUCESSO
+    //    Separei numa função porque agora ela só roda DEPOIS que o
+    //    Supabase confirma a gravação (ou se a gente detecta que a
+    //    pessoa já estava na lista).
+    // ================================================================
+    function mostrarSucesso(nome, email) {
+      const primeiroNome = nome.split(' ')[0]
+      textoBV.textContent = 'Bem-vinda, ' + primeiroNome + '! 🌙'
+      // ── Monta o link de indicação dela ("traga 2 amigas") ────────
+      const codigo = gerarCodigo(email)
+      const base = (location.origin && location.origin !== 'null')
+        ? location.origin + location.pathname
+        : 'https://juliesas1604-collab.github.io/selene/'
+      document.getElementById('ref-link').value = base + '?ref=' + codigo
+      // Esconde o formulário e o erro, mostra a mensagem de sucesso
+      form.style.display            = 'none'
+      erroEnvio.style.display       = 'none'
+      mensagemSucesso.style.display = 'block'
+    }
+    // ================================================================
     // 3. ESCUTAR O EVENTO DE SUBMIT
-    //    addEventListener: "fique de olho nesse elemento;
-    //    quando o evento 'submit' acontecer, rode esta função."
-    //    event.preventDefault(): impede o comportamento padrão
-    //    do formulário (que seria recarregar a página).
+    //    A grande mudança: agora a gente ESPERA (await) o Supabase
+    //    responder ANTES de mostrar "Bem-vinda". Se falhar, mostra
+    //    erro e mantém o formulário — nada de "sucesso falso".
     // ================================================================
     form.addEventListener('submit', async function(event) {
       event.preventDefault()   // sem isso, a página recarregaria
       // ── Limpar erros anteriores ──────────────────────────────────
       erroNome.style.display  = 'none'
       erroEmail.style.display = 'none'
+      erroEnvio.style.display = 'none'
       inputNome.classList.remove('campo-erro')
       inputEmail.classList.remove('campo-erro')
       // ── Pegar o que a usuária digitou (.value) ───────────────────
-      // .trim() remove espaços em branco no início e no fim
       const nome  = inputNome.value.trim()
       const email = inputEmail.value.trim()
       // ── Validar ──────────────────────────────────────────────────
       let temErro = false
       if (nome === '') {
-        // campo vazio: mostra erro
         erroNome.style.display = 'block'
         inputNome.classList.add('campo-erro')
         temErro = true
@@ -829,29 +875,22 @@
         inputEmail.classList.add('campo-erro')
         temErro = true
       }
-      // se tiver qualquer erro, para aqui (não continua)
       if (temErro) return
-      // ── Tudo certo: mostrar mensagem de sucesso ──────────────────
-      // Pega o primeiro nome (divide no espaço, pega a primeira parte)
-      const primeiroNome = nome.split(' ')[0]
-      // Muda o texto do h3 de boas-vindas com o nome dela
-      textoBV.textContent = 'Bem-vinda, ' + primeiroNome + '! 🌙'
-      // ── Monta o link de indicação dela ("traga 2 amigas") ────────
-      // location.origin + pathname = o endereço atual da página.
-      const codigo = gerarCodigo(email)
-      const base = (location.origin && location.origin !== 'null')
-        ? location.origin + location.pathname
-        : 'https://juliesas1604-collab.github.io/selene/'
-      document.getElementById('ref-link').value = base + '?ref=' + codigo
-      // Esconde o formulário e mostra a mensagem de sucesso
-      form.style.display            = 'none'
-      mensagemSucesso.style.display = 'block'
-      // ── Enviar pro Supabase ──────────────────────────────────────
-      // fetch() faz uma requisição HTTP — é como o navegador "ligar"
-      // pra um servidor e mandar informação.
-      // async/await: como o JS lida com coisas que demoram (rede).
-      // A função virou "async" lá em cima pra poder usar "await" aqui.
-      enviarParaSupabase(nome, email)
+      // ── Estado "enviando": trava o botão pra evitar clique duplo ──
+      const textoBotao = btnEnviar.textContent
+      btnEnviar.disabled = true
+      btnEnviar.textContent = 'Enviando... 🌙'
+      // ── Tenta salvar e SÓ mostra sucesso se o Supabase confirmar ─
+      const resultado = await enviarParaSupabase(nome, email)
+      if (resultado === 'ok' || resultado === 'duplicado') {
+        // 'duplicado' = e-mail já estava na lista → também é sucesso pra ela
+        mostrarSucesso(nome, email)
+      } else {
+        // Falhou de verdade: mostra erro e devolve o botão ao normal
+        erroEnvio.style.display = 'block'
+        btnEnviar.disabled = false
+        btnEnviar.textContent = textoBotao
+      }
     })
     // ================================================================
     // 3b. BOTÃO "COPIAR" DO LINK DE INDICAÇÃO
@@ -859,7 +898,6 @@
     document.getElementById('btn-copiar').addEventListener('click', function() {
       const campo = document.getElementById('ref-link')
       campo.select()
-      // navigator.clipboard: jeito moderno de copiar; o catch é o plano B
       navigator.clipboard.writeText(campo.value).catch(function() {
         document.execCommand('copy')
       })
@@ -870,12 +908,11 @@
     })
     // ================================================================
     // 4. FUNÇÃO QUE SALVA NO SUPABASE
-    //    fetch() = faz uma chamada HTTP pra API do Supabase
-    //    async/await = espera a resposta sem travar a página
-    //    JSON.stringify() = converte o objeto JS em texto pra enviar
-    //
-    //    (Pra registrar QUEM indicou quem no futuro: crie uma coluna
-    //     "indicada_por" na tabela lista_espera e inclua o ?ref aqui.)
+    //    Agora ela DEVOLVE um resultado:
+    //      'ok'         → gravou (status 201)
+    //      'duplicado'  → e-mail já existe (status 409) — tratamos como sucesso
+    //      'erro'       → qualquer outra falha (rede, RLS, etc.)
+    //    Assim quem chama decide o que mostrar na tela.
     // ================================================================
     const SUPABASE_URL = 'https://rlgavsuubshiiykdqdff.supabase.co'
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsZ2F2c3V1YnNoaWl5a2RxZGZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MDY3NTgsImV4cCI6MjA5Nzk4Mjc1OH0.5Qy1eAVzsZ1ftzvSsCQhaaNmI_gnmh2oPXgviMPwlwI'
@@ -891,13 +928,19 @@
           },
           body: JSON.stringify({ nome: nome, email: email })
         })
-        if (!resposta.ok) {
-          console.error('Erro ao salvar no Supabase:', resposta.status)
+        if (resposta.ok) {
+          return 'ok'                 // 200/201 — gravou
         }
+        if (resposta.status === 409) {
+          return 'duplicado'          // e-mail já estava na lista
+        }
+        // Qualquer outro status (401/403 = RLS bloqueando, 400, 500...)
+        console.error('Supabase não gravou. Status:', resposta.status)
+        return 'erro'
       } catch (erro) {
-        // Se a rede falhar, a mensagem de sucesso já apareceu —
-        // a usuária não vê erro. O problema fica no console pra debug.
-        console.error('Falha na conexão:', erro)
+        // Rede caiu / sem internet
+        console.error('Falha na conexão com o Supabase:', erro)
+        return 'erro'
       }
     }
   </script>
